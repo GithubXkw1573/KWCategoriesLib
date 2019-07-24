@@ -1,0 +1,32 @@
+{
+  "name": "KWCategoriesLib",
+  "version": "0.1.0",
+  "summary": "iOS项目中常用的分类库",
+  "description": "iOS项目中常用的分类库，包括NSString、UIButton、UIColor+hex、UIView等多种分类",
+  "homepage": "https://github.com/GithubXkw1573/KWCategoriesLib",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "GithubXkw1573": "1074030698@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/GithubXkw1573/KWCategoriesLib.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "KWCategoriesLib/Classes/**/*",
+  "public_header_files": "Pod/Classes/**/*.h",
+  "frameworks": [
+    "UIKit",
+    "Foundation"
+  ],
+  "dependencies": {
+    "Masonry": [
+      "~> 1.1.0"
+    ]
+  }
+}
