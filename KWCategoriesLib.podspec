@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'KWCategoriesLib'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'iOS项目中常用的分类库'
 
 # This description is used to generate tags and improve search results.
