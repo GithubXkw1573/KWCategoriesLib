@@ -107,4 +107,62 @@
     return theImage;
 }
 
+/**
+ * 压缩图片到指定尺寸大小
+ * @param size 尺寸大小（最大值）
+ * @return 返回的图片文件
+ */
+- (NSData *)compressImageToSize:(CGSize)size {
+    UIImage *image = [self fixOrientation];
+    CGFloat width;
+    CGFloat height;
+    CGFloat sizeRate = image.size.width/image.size.height;
+    if (image.size.width > size.width || image.size.height > size.height) {
+        if (sizeRate >= size.width/size.height) {
+            width = size.width;
+            height = size.width / sizeRate;
+        }else{
+            height = size.height;
+            width = size.height * sizeRate;
+        }
+    }else{
+        width = image.size.width;
+        height = image.size.height;
+    }
+    UIGraphicsBeginImageContext(CGSizeMake(width, height));
+    [image drawInRect:CGRectMake(0, 0, width, height)];
+    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSData *data = UIImageJPEGRepresentation(resultImage, 1.0);
+    if (data.length/1000.0 > 2048) {
+        data = UIImageJPEGRepresentation(resultImage, 0.5);
+    }
+    return data;
+}
+
+/**
+ * 压缩图片到指定文件大小
+ * @param size 目标大小（最大值）
+ * @return 返回的图片文件
+ */
+- (NSData *)compressImageToMaxKBytes:(CGFloat)size {
+    UIImage *image = [self fixOrientation];
+    NSData * data = UIImageJPEGRepresentation(image, 1.0);
+    CGFloat dataKBytes = data.length/1000.0;
+    CGFloat maxQuality = 0.9f;
+    CGFloat lastData = dataKBytes;
+    while (dataKBytes > size && maxQuality > 0.1f) {
+        maxQuality = maxQuality - 0.1f;
+        data = UIImageJPEGRepresentation(image, maxQuality);
+        dataKBytes = data.length / 1000.0;
+        if (lastData == dataKBytes) {
+            break;
+        }else{
+            lastData = dataKBytes;
+        }
+    }
+    return data;
+}
+
 @end
